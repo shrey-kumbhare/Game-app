@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Link, router } from "expo-router";
+import { Link, router, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Dimensions, Alert, StyleSheet } from "react-native";
 import FormField from "../../components/FormFeild";
 import CustomButton from "../../components/CustomButton";
 import { createUser } from "../../lib/appwrite";
+import { useRoute } from "@react-navigation/native";
 
 const SignUp = () => {
+  const router = useRouter();
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -27,7 +29,7 @@ const SignUp = () => {
       setUser(result);
       setIsLogged(true);
       Alert.alert("Success", "User signed up successfully");
-      router.replace("/index");
+      router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {

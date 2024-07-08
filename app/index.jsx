@@ -11,7 +11,7 @@ const Index = () => {
   };
 
   const {loading,isLogged}=useGlobalContext();
-  if (!loading && isLogged) return <Redirect href="/index" />;
+  if (!loading && isLogged) return <Redirect href="/home" />;
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollView}>

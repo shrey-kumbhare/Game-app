@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, router } from "expo-router";
+import { Link, router, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Dimensions, Alert, StyleSheet } from "react-native";
 
@@ -10,6 +10,7 @@ import { signIn } from "../../lib/appwrite";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
+  const router = useRouter();
   const { setUser, setIsLogged } = useGlobalContext();
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -27,11 +28,12 @@ const SignIn = () => {
     try {
       await signIn(form.email, form.password);
       const result = await getCurrentUser();
+      console.log(result)
       setUser(result);
       setIsLogged(true);
 
       Alert.alert("Success", "User signed in successfully");
-      router.replace("/index");
+      router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
