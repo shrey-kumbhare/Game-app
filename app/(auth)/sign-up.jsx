@@ -5,7 +5,6 @@ import { View, Text, ScrollView, Dimensions, Alert, StyleSheet } from "react-nat
 import FormField from "../../components/FormFeild";
 import CustomButton from "../../components/CustomButton";
 import { createUser } from "../../lib/appwrite";
-import { useRoute } from "@react-navigation/native";
 
 const SignUp = () => {
   const router = useRouter();
