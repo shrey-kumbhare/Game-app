@@ -1,34 +1,60 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { ActivityIndicator, Text, Pressable, StyleSheet } from "react-native";
 
-const CustomButton = ({ title, onPress, containerStyles = {}, textStyles = {} }) => {
+const CustomButton = ({
+  title,
+  handlePress,
+  containerStyles,
+  textStyles,
+  isLoading,
+}) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      activeOpacity={0.7}
-      style={[styles.buttonContainer, containerStyles]}
+    <Pressable
+      onPress={handlePress}
+      style={({ pressed }) => [
+        styles.button,
+        containerStyles,
+        isLoading && styles.loading,
+        pressed && styles.pressed,
+      ]}
+      disabled={isLoading}
     >
-      <Text style={[styles.buttonText, textStyles]}>
+      <Text style={[styles.text, textStyles]}>
         {title}
       </Text>
-    </TouchableOpacity>
+      {isLoading && (
+        <ActivityIndicator
+          animating={isLoading}
+          color="#fff"
+          size="small"
+          style={styles.activityIndicator}
+        />
+      )}
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    backgroundColor: '#2D3C55',
-    borderRadius: 12,
+  button: {
+    backgroundColor: 'grey',
+    borderRadius: 15,
     minHeight: 62,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    marginVertical: 10,
   },
-  buttonText: {
-    color: '#FFFFFF',
-    fontWeight: '600',
+  loading: {
+    opacity: 0.5,
+  },
+  pressed: {
+    opacity: 0.7,
+  },
+  text: {
+    color: 'primary',
+    fontFamily: 'psemibold',
     fontSize: 18,
+  },
+  activityIndicator: {
+    marginLeft: 8,
   },
 });
 

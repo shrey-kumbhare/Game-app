@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TextInput,  Pressable, StyleSheet } from "react-native";
 
 const FormField = ({
   title,
@@ -9,7 +9,6 @@ const FormField = ({
   otherStyles = {},
   ...props
 }) => {
-  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <View style={[styles.container, otherStyles]}>
@@ -22,14 +21,9 @@ const FormField = ({
           placeholder={placeholder}
           placeholderTextColor="#7B7B8B"
           onChangeText={handleChangeText}
-          secureTextEntry={title === "Password" && !showPassword}
+          secureTextEntry={title === "Password"}
           {...props}
         />
-
-        {title === "Password" && (
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-          </TouchableOpacity>
-        )}
       </View>
     </View>
   );

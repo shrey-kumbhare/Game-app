@@ -6,15 +6,38 @@ import { View, Text, ScrollView, Dimensions, Alert, StyleSheet } from "react-nat
 
 import FormFeild from "../../components/FormFeild";
 import CustomButton from "../../components/CustomButton";
+import { signIn } from "../../lib/appwrite";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
+  const { setUser, setIsLogged } = useGlobalContext();
+  const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
+  const submit = async () => {
+    if (form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
+    }
 
+    setSubmitting(true);
 
+    try {
+      await signIn(form.email, form.password);
+      const result = await getCurrentUser();
+      setUser(result);
+      setIsLogged(true);
+
+      Alert.alert("Success", "User signed in successfully");
+      router.replace("/index");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView>
@@ -28,7 +51,7 @@ const SignIn = () => {
             value={form.email}
             handleChangeText={(e) => setForm({ ...form, email: e })}
             otherStyles={{ marginTop: 28 }}
-            keyboardType="email-address"
+            inputMode="email"
           />
 
           <FormFeild
@@ -40,9 +63,9 @@ const SignIn = () => {
 
           <CustomButton
             title="Sign In"
-            // handlePress={submit}
+            handlePress={submit}
             containerStyles={{ marginTop: 28 }}
-            // isLoading={isSubmitting}
+            isLoading={isSubmitting}
           />
 
           <View style={styles.signupContainer}>

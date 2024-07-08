@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Dimensions, Alert, StyleSheet } from "react-native";
 import FormField from "../../components/FormFeild";
 import CustomButton from "../../components/CustomButton";
+import { createUser } from "../../lib/appwrite";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -21,12 +22,12 @@ const SignUp = () => {
     }
 
     setSubmitting(true);
-
     try {
-      // Add sign-up logic here
-
+      const result = await createUser(form.email, form.password, form.username);
+      setUser(result);
+      setIsLogged(true);
       Alert.alert("Success", "User signed up successfully");
-      router.replace("/home");
+      router.replace("/index");
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
@@ -54,7 +55,7 @@ const SignUp = () => {
             value={form.email}
             handleChangeText={(e) => setForm({ ...form, email: e })}
             otherStyles={styles.formFieldMargin}
-            keyboardType="email-address"
+            inputMode="email"
           />
 
           <FormField
@@ -66,9 +67,9 @@ const SignUp = () => {
 
           <CustomButton
             title="Sign Up"
-            // handlePress={submit}
+            handlePress={submit}
             containerStyles={styles.buttonMargin}
-            // isLoading={isSubmitting}
+            isLoading={isSubmitting}
           />
 
           <View style={styles.footer}>
@@ -87,7 +88,7 @@ const SignUp = () => {
 
 const styles = StyleSheet.create({
   safeAreaView: {
-    backgroundColor: '#0A0A0A', // Replace with your primary color
+    backgroundColor: '#0A0A0A', 
     height: '100%',
   },
   scrollViewContent: {
