@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { SafeAreaView, StyleSheet, FlatList, Image, RefreshControl, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, FlatList, Image, RefreshControl, Text, View, TouchableOpacity } from "react-native";
 import useAppwrite from "../../lib/useAppwrite";
 import { getAllGames } from "@/lib/appwrite";
 import GameCard from "../../components/Gamecard";
+import { useRouter } from 'expo-router';
+
 const styles = StyleSheet.create({
   safeAreaView: {
-    backgroundColor: 'black', // Replace with your primary color
+    backgroundColor: 'black',
     flex: 1,
   },
   listHeader: {
@@ -14,12 +16,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   headerText: {
-    fontFamily: 'pmedium',
     fontSize: 14,
     color: '#FFFFFF',
   },
   titleText: {
-    fontFamily: 'psemibold',
     fontSize: 24,
     color: '#FFFFFF',
   },
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
 });
 
 const Home = () => {
-  const { data: posts, refetch } = useAppwrite(getAllGames)
+  const router = useRouter();
+  const { data: posts, refetch } = useAppwrite(getAllGames);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
@@ -47,9 +48,8 @@ const Home = () => {
     <SafeAreaView style={styles.safeAreaView}>
       <FlatList
         data={posts}
-        keyExtractor={(item) => item}
         renderItem={({ item }) => (
-          <GameCard data={item} />
+            <GameCard data={item} />
         )}
         ListHeaderComponent={() => (
           <View style={styles.listHeader}>
@@ -58,7 +58,6 @@ const Home = () => {
                 <Text style={styles.headerText}>Welcome Back</Text>
                 <Text style={styles.titleText}>Enjoy</Text>
               </View>
-
               <View style={{ marginTop: 6 }}>
                 <Image
                   style={styles.logoImage}
@@ -66,8 +65,6 @@ const Home = () => {
                 />
               </View>
             </View>
-
-            
           </View>
         )}
         refreshControl={

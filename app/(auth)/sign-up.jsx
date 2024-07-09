@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, router, useRouter } from "expo-router";
+import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Dimensions, Alert, StyleSheet } from "react-native";
 import FormField from "../../components/FormFeild";
@@ -7,7 +7,6 @@ import CustomButton from "../../components/CustomButton";
 import { createUser } from "../../lib/appwrite";
 
 const SignUp = () => {
-  const router = useRouter();
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -28,10 +27,10 @@ const SignUp = () => {
       setUser(result);
       setIsLogged(true);
       Alert.alert("Success", "User signed up successfully");
-      router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
+      router.replace("/home");
       setSubmitting(false);
     }
   };
@@ -108,7 +107,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#FFFFFF',
     marginTop: 40,
-    fontFamily: 'psemibold', 
   },
   formFieldMargin: {
     marginTop: 28,  
@@ -123,14 +121,12 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 18,
-    color: '#A9A9A9', 
-    fontFamily: 'pregular',  
+    color: '#A9A9A9',   
   },
   footerLink: {
     fontSize: 18,
     fontWeight: '600',
     color: '#FF6F61',  
-    fontFamily: 'psemibold',  
   },
 });
 

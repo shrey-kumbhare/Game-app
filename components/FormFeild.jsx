@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16, 
     color: '#D3D3D3', 
-    fontFamily: 'pmedium', 
   },
   inputContainer: {
     width: '100%',
@@ -52,7 +51,6 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     color: '#FFFFFF', 
-    fontFamily: 'psemibold', 
     fontSize: 16, 
   },
   icon: {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, View, Text, StyleSheet } from 'react-native';
-import CustomButton from '../components/CustomButton'; // Adjust the path based on your project structure
+import CustomButton from '../components/CustomButton'; 
 import { useRouter } from 'expo-router';
 import { useGlobalContext } from '../context/GlobalProvider';
 

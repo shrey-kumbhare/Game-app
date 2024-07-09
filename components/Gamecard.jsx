@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useRouter } from 'expo-router';
 
-const GameCard = ({ data: { title, description, image } }) => {
+const GameCard = ({ data: { title, description, image, id } }) => {
+  const router = useRouter();
+  const handleButtonPress = () => {
+    router.replace({
+      pathname: '/GameDetails',
+      query: { title, description, image, id }
+    });
+  };
   const [play, setPlay] = useState(false);
 
   return (
@@ -24,7 +32,7 @@ const GameCard = ({ data: { title, description, image } }) => {
       
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => setPlay(true)}
+        onPress={handleButtonPress}
         style={styles.touchableContainer}
       >
         <Image
@@ -37,6 +45,7 @@ const GameCard = ({ data: { title, description, image } }) => {
           style={styles.playIcon}
           resizeMode="contain"
         />
+        <Text style={styles.joinButton}>Join</Text>
       </TouchableOpacity>
     </View>
   );
@@ -77,7 +86,6 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   titleText: {
-    fontFamily: 'psemibold',
     fontSize: 14,
     color: '#FFFFFF',
   },
@@ -99,6 +107,16 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     position: 'absolute',
+  },
+  joinButton: {
+    backgroundColor: "#8A2BE2",
+    color: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    fontSize: 18,
+    fontWeight: "bold",
+    marginLeft: 10,
   },
 });
 

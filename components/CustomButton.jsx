@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'primary',
-    fontFamily: 'psemibold',
     fontSize: 18,
   },
   activityIndicator: {
